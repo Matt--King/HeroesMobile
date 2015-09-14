@@ -45,6 +45,14 @@ public class Home extends AppCompatActivity {
         }
     }
 
+    public void showGPS(View v) {
+        //when the GPS button is pressed, make it disappear
+        (findViewById(R.id.button2)).setVisibility(View.GONE);
+
+
+        //TODO bring up the map, show nearby Blizzard servers
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
