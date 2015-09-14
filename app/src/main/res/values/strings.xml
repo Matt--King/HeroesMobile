@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HeroesMobile</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search_bar">Search for a Hero</string>
+    <string name="title_activity_splash">Splash</string>
+    <string name="i_made_this">Heroes to go!</string>
+
+</resources>
