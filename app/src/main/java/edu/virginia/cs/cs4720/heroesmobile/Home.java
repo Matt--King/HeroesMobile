@@ -6,26 +6,41 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
-   /* public String name;
-    //TODO How do we correctly save global variables?
-*/
-    public void setName(View view) {
+    public void setName(View v) {
         //retrieve user input and use that as their name
-        TextView box = (TextView)findViewById(R.id.textView3);
+        EditText box = (EditText)findViewById(R.id.editText);
         String str = box.getText().toString();
 
         if(str.length() <= 0) {
+            //ask them to try again
             Toast.makeText(getBaseContext(),
                     "Please enter your name.",
                     Toast.LENGTH_SHORT).show();
         } else {
-            Resources res = getResources();
-            String text = String.format(res.getString(R.string.hello_name), str);
+
+            //Customize the name for the user
+
+            String nameText = String.format(getApplicationContext().getString(R.string.hello_name), str);
+
+            TextView nameTextView = (TextView)findViewById(R.id.textView2);
+            nameTextView.setText(nameText);
+
+            //switch the layout visibility so that the GPS prompt is visible
+            //make the current screen disappear
+            box.setVisibility(View.GONE);
+            (findViewById(R.id.textView3)).setVisibility(View.GONE);
+            (findViewById(R.id.button)).setVisibility(View.GONE);
+
+            //make everything else pop up
+            nameTextView.setVisibility(View.VISIBLE);
+            (findViewById(R.id.button2)).setVisibility(View.VISIBLE);
 
         }
     }

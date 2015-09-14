@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">HeroesMobile</string>
 
-    <string name="hello_name">Hello %1$s!</string>
+    <string name="hello_name">Hello %1$s! \nLet us detect your location, so that we can find the closest Blizzard server to you</string>
     <string name="action_settings">Settings</string>
     <string name="search_bar">Search for a Hero</string>
     <string name="title_activity_splash">Splash</string>
     <string name="i_made_this">Heroes to go!</string>
     <string name="name_box">Tell Me Your Name</string>
     <string name="submit">Submit</string>
-    <string name="gps_button">Detect Your Location</string>
+    <string name="gps_button">Let Us Detect Your Location</string>
 
     <string name="where_am_i">Your Location is:  </string>
 </resources>
