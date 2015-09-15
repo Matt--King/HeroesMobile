@@ -70,7 +70,29 @@
         android:layout_height="wrap_content"
         android:text="@string/where_am_i"
         android:id="@+id/textView4"
-        android:layout_alignBottom="@+id/button"
+        android:visibility="gone"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/latitude"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/longitude"
+        android:layout_below="@+id/latitude"
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
 
