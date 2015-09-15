@@ -1,5 +1,8 @@
 package edu.virginia.cs.cs4720.heroesmobile;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,10 +16,10 @@ public class Home extends AppCompatActivity {
 
     public void setName(View v) {
         //retrieve user input and use that as their name
-        EditText box = (EditText)findViewById(R.id.editText);
+        EditText box = (EditText) findViewById(R.id.editText);
         String str = box.getText().toString();
 
-        if(str.length() <= 0) {
+        if (str.length() <= 0) {
             //ask them to try again
             Toast.makeText(getBaseContext(),
                     "Please enter your name.",
@@ -27,14 +30,15 @@ public class Home extends AppCompatActivity {
 
             String nameText = String.format(getApplicationContext().getString(R.string.hello_name), str);
 
-            TextView nameTextView = (TextView)findViewById(R.id.textView2);
+            TextView nameTextView = (TextView) findViewById(R.id.textView2);
             nameTextView.setText(nameText);
 
             //switch the layout visibility so that the GPS prompt is visible
             //make the current screen disappear
+            (findViewById(R.id.button)).setVisibility(View.GONE);
             box.setVisibility(View.GONE);
             (findViewById(R.id.textView3)).setVisibility(View.GONE);
-            (findViewById(R.id.button)).setVisibility(View.GONE);
+
 
             //make everything else pop up
             nameTextView.setVisibility(View.VISIBLE);
@@ -44,11 +48,38 @@ public class Home extends AppCompatActivity {
     }
 
     public void showGPS(View v) {
-        //when the GPS button is pressed, make it disappear
-        (findViewById(R.id.button2)).setVisibility(View.GONE);
 
 
-        //TODO bring up the map, show nearby Blizzard servers
+
+
+        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        try {
+            Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            //Edit TextViews Latitude and Longitude to output the lat and long
+            double lat = location.getLatitude();
+            double lon = location.getLongitude();
+
+            TextView latBox = (TextView)findViewById(R.id.latitude);
+            latBox.setText("Your Latitude: " + lat);
+            TextView lonBox = (TextView)findViewById(R.id.longitude);
+            lonBox.setText("Your Longitude: " + lon);
+
+            //when the GPS button is pressed, make it disappear
+            (findViewById(R.id.button2)).setVisibility(View.GONE);
+            (findViewById(R.id.textView2)).setVisibility(View.GONE);
+
+
+            (findViewById(R.id.textView4)).setVisibility(View.VISIBLE);
+            latBox.setVisibility(View.VISIBLE);
+            lonBox.setVisibility(View.VISIBLE);
+
+        } catch(SecurityException e){
+            Toast.makeText(getBaseContext(),
+                    "You didn't let me use your location.",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -73,6 +104,7 @@ public class Home extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         }
 
