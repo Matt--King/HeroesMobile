@@ -2,9 +2,11 @@ package edu.virginia.cs.cs4720.heroesmobile;
 
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,23 +45,46 @@ public class Home extends AppCompatActivity {
             //make everything else pop up
             nameTextView.setVisibility(View.VISIBLE);
             (findViewById(R.id.button2)).setVisibility(View.VISIBLE);
-
         }
     }
 
+    private LocationManager locManager;
+    private LocationListener locationListener;
+    private Location loc;
     public void showGPS(View v) {
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        // Define a listener that responds to location updates
+        locationListener = new LocationListener() {
+            private final String TAG = "debug.LocationListener";
+            public void onLocationChanged(Location location) {
+                loc = location;
+            }
+            // assume default behavior on these 3 methods
+            public void onProviderEnabled(String p) {
+                Log.i(TAG, "Provider enabled");
+            }
 
+            public void onProviderDisabled(String p) {
+                Log.i(TAG, "Provider disabled");
+            }
 
+            public void onStatusChanged(String p, int status, Bundle extras) {
+                Log.i(TAG, "Status changed");
+            }
+        };
 
-        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         try {
-            Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            while (loc.getAccuracy() > 100){
+                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, locationListener);
+            }
+            locManager.removeUpdates(locationListener);
+
 
             //Edit TextViews Latitude and Longitude to output the lat and long
-            double lat = location.getLatitude();
-            double lon = location.getLongitude();
+            double lat = loc.getLatitude();
+            double lon = loc.getLongitude();
 
             TextView latBox = (TextView)findViewById(R.id.latitude);
             latBox.setText("Your Latitude: " + lat);
@@ -70,10 +95,9 @@ public class Home extends AppCompatActivity {
             (findViewById(R.id.button2)).setVisibility(View.GONE);
             (findViewById(R.id.textView2)).setVisibility(View.GONE);
 
-
             (findViewById(R.id.textView4)).setVisibility(View.VISIBLE);
-            latBox.setVisibility(View.VISIBLE);
-            lonBox.setVisibility(View.VISIBLE);
+            findViewById(R.id.latitude).setVisibility(View.VISIBLE);
+            findViewById(R.id.longitude).setVisibility(View.VISIBLE);
 
         } catch(SecurityException e){
             Toast.makeText(getBaseContext(),
