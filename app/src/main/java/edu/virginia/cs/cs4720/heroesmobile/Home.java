@@ -53,11 +53,9 @@ public class Home extends AppCompatActivity {
     }
 
     public void showGPS(View v) {
-        //when the GPS button is pressed, make it disappear
-        (findViewById(R.id.button2)).setVisibility(View.GONE);
-        (findViewById(R.id.textView2)).setVisibility(View.GONE);
 
-        //Then, ask the GPS sensor to give the app the user's location
+
+
 
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -72,6 +70,11 @@ public class Home extends AppCompatActivity {
             latBox.setText("Your Latitude: " + lat);
             TextView lonBox = (TextView)findViewById(R.id.longitude);
             lonBox.setText("Your Longitude: " + lon);
+
+            //when the GPS button is pressed, make it disappear
+            (findViewById(R.id.button2)).setVisibility(View.GONE);
+            (findViewById(R.id.textView2)).setVisibility(View.GONE);
+
 
             (findViewById(R.id.textView4)).setVisibility(View.VISIBLE);
             latBox.setVisibility(View.VISIBLE);
