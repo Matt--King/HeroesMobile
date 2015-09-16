@@ -4,8 +4,8 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.GregorianCalendar;
 
 
 public class Home extends AppCompatActivity {
@@ -53,8 +52,50 @@ public class Home extends AppCompatActivity {
 
     private Location loc;
     public void showGPS(View v) {
-        Log.i("GPS", "Show GPS Started");
+        Log.i("Location", "Show GPS Started");
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location lkl;
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.i("NetworkLocListener", "onLocationChanged executed");
+                loc = location;
+                Log.v("NetworkLocListener", "IN ON LOCATION CHANGE, lat=" + loc.getLatitude() + ", lon=" + loc.getLongitude());
+            }
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+            @Override
+            public void onProviderEnabled(String provider) {}
+            @Override
+            public void onProviderDisabled(String provider) {}
+        };
+        try {
+            boolean requisite = true;
+            int c = 0;
+            lkl = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Toast.makeText(getBaseContext(),
+                    lkl.toString(),
+                    Toast.LENGTH_LONG).show();
+            while (requisite) {
+                Log.i("GPS","running req loop");
+                locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+                c++;
+                if (loc != null || c > 100){
+                    requisite = false;
+                    locManager.removeUpdates(locationListener);
+                    Log.i("GPS", "listener turned off");
+                    if (c > 100){
+                        loc = lkl;
+                    }
+                }
+            }
+        }
+        catch (SecurityException e) {
+        Toast.makeText(getBaseContext(),
+                "You didn't let me use your location.",
+                Toast.LENGTH_LONG).show();
+        }
+        /*
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Toast.makeText(getBaseContext(),
                     "Location is not enabled. Location cannot be found.",
@@ -64,7 +105,7 @@ public class Home extends AppCompatActivity {
             // TODO remove above line
             if (loc == null) {
                 // Log.i("GPS","LKN == null");
-                // Def  ine a listener that responds to location updates
+                // Define a listener that responds to location updates
                 LocationListener locationListener = new LocationListener() {
                     private final String TAG = "debug.LocationListener";
 
@@ -91,13 +132,13 @@ public class Home extends AppCompatActivity {
                 try {
                     // Log.i("GPS","loc == null");
                     GregorianCalendar cal = new GregorianCalendar();
-                    Log.i("GPS", "starting timer");
-
                     while (loc == null) {
+                        Log.i("GPS", "Entering the while loc==null loop");
                         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                     }
                     //loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    Log.i("GPS", "loc == null evaluates to " + String.valueOf(loc==null));
+                    // Log.i("GPS", "loc == null evaluates to " + String.valueOf(loc==null));
+                    Log.i("GPS", "starting timer");
                     long start = cal.getTimeInMillis();
                     // Log.i("GPS", "Location "+loc.toString());
                     while (loc.getAccuracy() > 68) {
@@ -120,6 +161,7 @@ public class Home extends AppCompatActivity {
                 }
             }
             Log.i("GPS", "loc found");
+            */
             //Edit TextViews Latitude and Longitude to output the lat and long
             double lat = loc.getLatitude();
             double lon = loc.getLongitude();
@@ -137,7 +179,7 @@ public class Home extends AppCompatActivity {
             findViewById(R.id.latitude).setVisibility(View.VISIBLE);
             findViewById(R.id.longitude).setVisibility(View.VISIBLE);
         }
-    }
+
         @Override
         protected void onCreate (Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
