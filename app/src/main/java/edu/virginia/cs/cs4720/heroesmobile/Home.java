@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.GregorianCalendar;
+
 
 public class Home extends AppCompatActivity {
 
@@ -52,88 +54,124 @@ public class Home extends AppCompatActivity {
     private LocationListener locationListener;
     private Location loc;
     public void showGPS(View v) {
+        Log.i("GPS","Show GPS Started");
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        // Define a listener that responds to location updates
-        locationListener = new LocationListener() {
-            private final String TAG = "debug.LocationListener";
-            public void onLocationChanged(Location location) {
-                loc = location;
-            }
-            // assume default behavior on these 3 methods
-            public void onProviderEnabled(String p) {
-                Log.i(TAG, "Provider enabled");
-            }
-
-            public void onProviderDisabled(String p) {
-                Log.i(TAG, "Provider disabled");
-            }
-
-            public void onStatusChanged(String p, int status, Bundle extras) {
-                Log.i(TAG, "Status changed");
-            }
-        };
-
-
+        // TODO check for GPS enabled
         try {
-            while (loc.getAccuracy() > 100){
-                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, locationListener);
-            }
-            locManager.removeUpdates(locationListener);
-
-
-            //Edit TextViews Latitude and Longitude to output the lat and long
-            double lat = loc.getLatitude();
-            double lon = loc.getLongitude();
-
-            TextView latBox = (TextView)findViewById(R.id.latitude);
-            latBox.setText("Your Latitude: " + lat);
-            TextView lonBox = (TextView)findViewById(R.id.longitude);
-            lonBox.setText("Your Longitude: " + lon);
-
-            //when the GPS button is pressed, make it disappear
-            (findViewById(R.id.button2)).setVisibility(View.GONE);
-            (findViewById(R.id.textView2)).setVisibility(View.GONE);
-
-            (findViewById(R.id.textView4)).setVisibility(View.VISIBLE);
-            findViewById(R.id.latitude).setVisibility(View.VISIBLE);
-            findViewById(R.id.longitude).setVisibility(View.VISIBLE);
-
-        } catch(SecurityException e){
+            loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        } catch (SecurityException e) {
             Toast.makeText(getBaseContext(),
                     "You didn't let me use your location.",
                     Toast.LENGTH_LONG).show();
         }
+        // Log.i("GPS","before loc == null check");
+        loc = null;
+        // TODO delete above line
+        boolean l = (loc == null);
+        Log.i("GPS","loc == null evaluates to "+String.valueOf(l));
+        if (loc == null) {
+            // Log.i("GPS","LKN == null");
+            // Def  ine a listener that responds to location updates
+            locationListener = new LocationListener() {
+                private final String TAG = "debug.LocationListener";
+
+                public void onLocationChanged(Location location) {
+                    Log.i(TAG, "onLocationChanged executed");
+                    loc = location;
+                    Log.v(TAG, "IN ON LOCATION CHANGE, lat=" + loc.getLatitude() + ", lon=" + loc.getLongitude());
+                }
+
+                // assume default behavior on these 3 methods
+                public void onProviderEnabled(String p) {
+                    Log.i(TAG, "Provider enabled");
+                }
+
+                public void onProviderDisabled(String p) {
+                    Log.i(TAG, "Provider disabled");
+                }
+
+                public void onStatusChanged(String p, int status, Bundle extras) {
+                    Log.i(TAG, "Status changed");
+                }
+            };
+
+            try {
+                // Log.i("GPS","loc == null");
+                GregorianCalendar cal = new GregorianCalendar();
+                Log.i("GPS", "starting timer");
+
+                while (loc == null){
+                    locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                }
+                //loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Log.i("GPS","loc == null evaluates to "+String.valueOf(l));
+                long start = cal.getTimeInMillis();
+                // Log.i("GPS", "Location "+loc.toString());
+                while (loc.getAccuracy() > 68) {
+
+                    if (cal.getTimeInMillis() - start > 5000){
+                        Toast.makeText(getBaseContext(),
+                                "Location not found.",
+                                Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+                locManager.removeUpdates(locationListener);
+                Log.i("GPS", "listener turned off");
+
+
+            } catch (SecurityException e) {
+                Toast.makeText(getBaseContext(),
+                        "You didn't let me use your location.",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+        Log.i("GPS","loc found");
+        //Edit TextViews Latitude and Longitude to output the lat and long
+        double lat = loc.getLatitude();
+        double lon = loc.getLongitude();
+
+        TextView latBox = (TextView) findViewById(R.id.latitude);
+        latBox.setText("Your Latitude: " + lat);
+        TextView lonBox = (TextView) findViewById(R.id.longitude);
+        lonBox.setText("Your Longitude: " + lon);
+
+        //when the GPS button is pressed, make it disappear
+        (findViewById(R.id.button2)).setVisibility(View.GONE);
+        (findViewById(R.id.textView2)).setVisibility(View.GONE);
+
+        (findViewById(R.id.textView4)).setVisibility(View.VISIBLE);
+        findViewById(R.id.latitude).setVisibility(View.VISIBLE);
+        findViewById(R.id.longitude).setVisibility(View.VISIBLE);
     }
+        @Override
+        protected void onCreate (Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_home);
+        }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-
+        @Override
+        public boolean onCreateOptionsMenu (Menu menu){
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.menu_home, menu);
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        public boolean onOptionsItemSelected (MenuItem item){
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
+
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_settings) {
+
+                return true;
+            }
+
+            return super.onOptionsItemSelected(item);
+        }
+
+
     }
-
-
-}
