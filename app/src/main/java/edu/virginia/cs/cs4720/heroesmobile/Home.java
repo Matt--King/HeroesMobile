@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,15 +19,17 @@ import android.widget.Toast;
 public class Home extends AppCompatActivity {
 
     public void setName(View v) {
+        String toastString = "dicsk";
+        Toast toasty = Toast.makeText(getBaseContext(),toastString,Toast.LENGTH_SHORT );
+        toasty.setGravity(Gravity.TOP,0,0);
         //retrieve user input and use that as their name
         EditText box = (EditText) findViewById(R.id.editText);
         String str = box.getText().toString();
 
         if (str.length() <= 0) {
             //ask them to try again
-            Toast.makeText(getBaseContext(),
-                    "Please enter your name.",
-                    Toast.LENGTH_SHORT).show();
+            toastString = "Please enter your name.";
+            toasty.show();
         } else {
 
             //Customize the name for the user
@@ -51,50 +54,66 @@ public class Home extends AppCompatActivity {
 
 
     private Location loc;
+
     public void showGPS(View v) {
+        String toastString = "";
+        Toast toasty = Toast.makeText(getBaseContext(),toastString,Toast.LENGTH_SHORT );
+        toasty.setGravity(Gravity.TOP,0,0);
         Log.i("Location", "Show GPS Started");
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location lkl;
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.i("NetworkLocListener", "onLocationChanged executed");
-                loc = location;
-                Log.v("NetworkLocListener", "IN ON LOCATION CHANGE, lat=" + loc.getLatitude() + ", lon=" + loc.getLongitude());
-            }
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
-            @Override
-            public void onProviderEnabled(String provider) {}
-            @Override
-            public void onProviderDisabled(String provider) {}
-        };
-        try {
-            boolean requisite = true;
-            int c = 0;
-            lkl = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            Toast.makeText(getBaseContext(),
-                    lkl.toString(),
-                    Toast.LENGTH_LONG).show();
-            while (requisite) {
-                Log.i("GPS","running req loop");
+        Log.i("GPS", "" + locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
+        if (!locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            toastString = "Location is not enabled.\nLocation cannot be found.";
+            toasty.show();
+        } else {
+            Location lkl;
+            LocationListener locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Log.i("NetworkLocListener", "onLocationChanged executed");
+                    loc = location;
+                    Log.v("NetworkLocListener", "IN ON LOCATION CHANGE, lat=" + loc.getLatitude() + ", lon=" + loc.getLongitude());
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+                }
+            };
+            try {
+                boolean requisite = true;
+                int c = 0;
+                lkl = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Log.i("GPS", lkl.toString());
                 locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-                c++;
-                if (loc != null || c > 100){
-                    requisite = false;
-                    locManager.removeUpdates(locationListener);
-                    Log.i("GPS", "listener turned off");
-                    if (c > 100){
-                        loc = lkl;
+                Log.i("GPS", "starting while loop");
+                while (requisite) {
+                    c++;
+                    if (loc != null || c > 1000) {
+                        Log.i("GPS", "" + c);
+                        requisite = false;
+                        locManager.removeUpdates(locationListener);
+                        Log.i("GPS", "listener turned off");
+                        if (c > 1000) {
+                            Log.i("GPS", "loc evaluates to "+(loc==null));
+                            loc = lkl;
+                            toastString = "Current location unable to be updated.\nUsing last known location.";
+                            toasty.show();
+                        }
                     }
                 }
+            } catch (SecurityException e) {
+                Toast.makeText(getBaseContext(),
+                        "You didn't let me use your location.",
+                        Toast.LENGTH_LONG).show();
             }
-        }
-        catch (SecurityException e) {
-        Toast.makeText(getBaseContext(),
-                "You didn't let me use your location.",
-                Toast.LENGTH_LONG).show();
-        }
         /*
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Toast.makeText(getBaseContext(),
@@ -160,12 +179,12 @@ public class Home extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
             }
-            Log.i("GPS", "loc found");
+
             */
             //Edit TextViews Latitude and Longitude to output the lat and long
             double lat = loc.getLatitude();
             double lon = loc.getLongitude();
-
+            Log.i("GPS", loc.toString());
             TextView latBox = (TextView) findViewById(R.id.latitude);
             latBox.setText("Your Latitude: " + lat);
             TextView lonBox = (TextView) findViewById(R.id.longitude);
@@ -180,34 +199,36 @@ public class Home extends AppCompatActivity {
             findViewById(R.id.longitude).setVisibility(View.VISIBLE);
         }
 
-        @Override
-        protected void onCreate (Bundle savedInstanceState){
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_home);
-        }
+    }
 
-        @Override
-        public boolean onCreateOptionsMenu (Menu menu){
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_home, menu);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+
             return true;
         }
 
-        @Override
-        public boolean onOptionsItemSelected (MenuItem item){
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }
-
-
+        return super.onOptionsItemSelected(item);
     }
+
+
+}
