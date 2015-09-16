@@ -50,12 +50,11 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    private LocationManager locManager;
-    private LocationListener locationListener;
+
     private Location loc;
     public void showGPS(View v) {
         Log.i("GPS", "Show GPS Started");
-        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Toast.makeText(getBaseContext(),
                     "Location is not enabled. Location cannot be found.",
@@ -66,7 +65,7 @@ public class Home extends AppCompatActivity {
             if (loc == null) {
                 // Log.i("GPS","LKN == null");
                 // Def  ine a listener that responds to location updates
-                locationListener = new LocationListener() {
+                LocationListener locationListener = new LocationListener() {
                     private final String TAG = "debug.LocationListener";
 
                     public void onLocationChanged(Location location) {
@@ -98,7 +97,7 @@ public class Home extends AppCompatActivity {
                         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                     }
                     //loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    Log.i("GPS", "loc == null evaluates to " + String.valueOf(l));
+                    Log.i("GPS", "loc == null evaluates to " + String.valueOf(loc==null));
                     long start = cal.getTimeInMillis();
                     // Log.i("GPS", "Location "+loc.toString());
                     while (loc.getAccuracy() > 68) {
