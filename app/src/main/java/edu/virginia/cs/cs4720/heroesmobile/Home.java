@@ -19,8 +19,8 @@ import android.widget.Toast;
 public class Home extends AppCompatActivity {
 
     public void setName(View v) {
-        String toastString = "dicsk";
-        Toast toasty = Toast.makeText(getBaseContext(),toastString,Toast.LENGTH_SHORT );
+
+        Toast toasty = Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT );
         toasty.setGravity(Gravity.TOP,0,0);
         //retrieve user input and use that as their name
         EditText box = (EditText) findViewById(R.id.editText);
@@ -28,7 +28,7 @@ public class Home extends AppCompatActivity {
 
         if (str.length() <= 0) {
             //ask them to try again
-            toastString = "Please enter your name.";
+            toasty.setText("Please enter your name.");
             toasty.show();
         } else {
 
@@ -56,14 +56,13 @@ public class Home extends AppCompatActivity {
     private Location loc;
 
     public void showGPS(View v) {
-        String toastString = "";
-        Toast toasty = Toast.makeText(getBaseContext(),toastString,Toast.LENGTH_SHORT );
+        Toast toasty = Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT );
         toasty.setGravity(Gravity.TOP,0,0);
         Log.i("Location", "Show GPS Started");
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Log.i("GPS", "" + locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
         if (!locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            toastString = "Location is not enabled.\nLocation cannot be found.";
+            toasty.setText("Location is not enabled.\nLocation cannot be found.");
             toasty.show();
         } else {
             Location lkl;
@@ -104,7 +103,7 @@ public class Home extends AppCompatActivity {
                         if (c > 1000) {
                             Log.i("GPS", "loc evaluates to "+(loc==null));
                             loc = lkl;
-                            toastString = "Current location unable to be updated.\nUsing last known location.";
+                            toasty.setText("Current location unable to be updated.\nUsing last known location.");
                             toasty.show();
                         }
                     }
