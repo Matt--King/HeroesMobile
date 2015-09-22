@@ -18,6 +18,16 @@ import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
+    private Location loc;
+    private final BlizzardServer[] servers = {
+            new BlizzardServer("US10", "New York City, NY, USA", 40.7033127, -73.979681),
+            new BlizzardServer("ORD1", "Chicago, IL, USA", 41.8337329, -87.7321555),
+            new BlizzardServer("US8", "Los Angeles, CA, USA", 34.0204989, -118.4117325),
+            new BlizzardServer("SA1", "Rio de Janeiro, Brazil", -22.9112335, -43.448334),
+            new BlizzardServer("AU1", "Sydney, SNW, Australia", -33.7969235, 150.9224326),
+            new BlizzardServer("SG1", "Singapore", 1.3147308, 103.8470128)
+    };
+
     public void setName(View v) {
 
         Toast toasty = Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT );
@@ -53,7 +63,6 @@ public class Home extends AppCompatActivity {
     }
 
 
-    private Location loc;
 
     public void showGPS(View v) {
         Toast toasty = Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT );
@@ -113,81 +122,21 @@ public class Home extends AppCompatActivity {
                         "You didn't let me use your location.",
                         Toast.LENGTH_LONG).show();
             }
-        /*
-        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(getBaseContext(),
-                    "Location is not enabled. Location cannot be found.",
-                    Toast.LENGTH_LONG).show();
-        } else {
-            loc = null;
-            // TODO remove above line
-            if (loc == null) {
-                // Log.i("GPS","LKN == null");
-                // Define a listener that responds to location updates
-                LocationListener locationListener = new LocationListener() {
-                    private final String TAG = "debug.LocationListener";
-
-                    public void onLocationChanged(Location location) {
-                        Log.i(TAG, "onLocationChanged executed");
-                        loc = location;
-                        Log.v(TAG, "IN ON LOCATION CHANGE, lat=" + loc.getLatitude() + ", lon=" + loc.getLongitude());
-                    }
-
-                    // assume default behavior on these 3 methods
-                    public void onProviderEnabled(String p) {
-                        Log.i(TAG, "Provider enabled");
-                    }
-
-                    public void onProviderDisabled(String p) {
-                        Log.i(TAG, "Provider disabled");
-                    }
-
-                    public void onStatusChanged(String p, int status, Bundle extras) {
-                        Log.i(TAG, "Status changed");
-                    }
-                };
-
-                try {
-                    // Log.i("GPS","loc == null");
-                    GregorianCalendar cal = new GregorianCalendar();
-                    while (loc == null) {
-                        Log.i("GPS", "Entering the while loc==null loop");
-                        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                    }
-                    //loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    // Log.i("GPS", "loc == null evaluates to " + String.valueOf(loc==null));
-                    Log.i("GPS", "starting timer");
-                    long start = cal.getTimeInMillis();
-                    // Log.i("GPS", "Location "+loc.toString());
-                    while (loc.getAccuracy() > 68) {
-
-                        if (cal.getTimeInMillis() - start > 5000) {
-                            Toast.makeText(getBaseContext(),
-                                    "Location not found.",
-                                    Toast.LENGTH_LONG).show();
-                            break;
-                        }
-                    }
-                    locManager.removeUpdates(locationListener);
-                    Log.i("GPS", "listener turned off");
 
 
-                } catch (SecurityException e) {
-                    Toast.makeText(getBaseContext(),
-                            "You didn't let me use your location.",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
 
-            */
             //Edit TextViews Latitude and Longitude to output the lat and long
             double lat = loc.getLatitude();
             double lon = loc.getLongitude();
             Log.i("GPS", loc.toString());
+
             TextView latBox = (TextView) findViewById(R.id.latitude);
             latBox.setText("Your Latitude: " + lat);
             TextView lonBox = (TextView) findViewById(R.id.longitude);
             lonBox.setText("Your Longitude: " + lon);
+
+            //Calculate closest Blizzard server
+
 
             //when the GPS button is pressed, make it disappear
             (findViewById(R.id.button2)).setVisibility(View.GONE);

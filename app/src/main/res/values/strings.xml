@@ -8,7 +8,9 @@
     <string name="i_made_this">Heroes to go!</string>
     <string name="name_box">Tell Me Your Name</string>
     <string name="submit">Submit</string>
-    <string name="gps_button">Let Us Detect Your Location</string>
+    <string name="gps_button">Find the Closest Server to me!</string>
+    <string name="server_blurb">The closest Blizzard server to your location is:</string>
+    <string name="server_name_city">Server name: %1$s\nLocation: %2$s</string>
 
     <string name="where_am_i">Your Location is: </string>
 </resources>

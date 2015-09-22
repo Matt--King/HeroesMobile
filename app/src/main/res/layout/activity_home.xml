@@ -14,7 +14,7 @@
         android:id="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="129dp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <!--"Tell me your name" TextView-->
     <TextView
@@ -25,7 +25,7 @@
         android:id="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <!--Submit Button-->
     <Button
@@ -35,7 +35,7 @@
         android:text="@string/submit"
         android:id="@+id/button"
         android:onClick="setName"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="44dp"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true" />
@@ -70,30 +70,51 @@
         android:layout_height="wrap_content"
         android:text="@string/where_am_i"
         android:id="@+id/textView4"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:layout_marginTop="79dp"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="@string/title_activity_splash"
         android:id="@+id/latitude"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="@string/title_activity_splash"
         android:id="@+id/longitude"
         android:layout_below="@+id/latitude"
         android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/server_blurb"
+        android:id="@+id/server_blurb"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/longitude"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/server_name_city"
+        android:id="@+id/server_name_city"
+        android:layout_below="@+id/server_blurb"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:gravity="center_horizontal" />
 
 </RelativeLayout>
