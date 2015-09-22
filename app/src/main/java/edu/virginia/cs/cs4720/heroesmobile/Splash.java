@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import static java.lang.Thread.sleep;
 
 public class Splash extends AppCompatActivity {
 
@@ -15,7 +14,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
+        //Display the splash page for 1.5 secs, then kill it and start the app
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
