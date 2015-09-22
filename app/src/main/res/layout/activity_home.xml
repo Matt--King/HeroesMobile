@@ -14,7 +14,7 @@
         android:id="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="129dp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <!--"Tell me your name" TextView-->
     <TextView
@@ -25,7 +25,7 @@
         android:id="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <!--Submit Button-->
     <Button
@@ -35,7 +35,7 @@
         android:text="@string/submit"
         android:id="@+id/button"
         android:onClick="setName"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginTop="44dp"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true" />
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:text="@string/where_am_i"
         android:id="@+id/textView4"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="79dp"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
@@ -84,7 +84,7 @@
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
         android:id="@+id/longitude"
         android:layout_below="@+id/latitude"
         android:layout_centerHorizontal="true"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -104,7 +104,8 @@
         android:id="@+id/server_blurb"
         android:layout_marginTop="80dp"
         android:layout_below="@+id/longitude"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -115,6 +116,7 @@
         android:layout_below="@+id/server_blurb"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:visibility="gone" />
 
 </RelativeLayout>
