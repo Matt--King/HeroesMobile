@@ -13,4 +13,7 @@
     <string name="server_name_city">Server name: %1$s\nLocation: %2$s</string>
 
     <string name="where_am_i">Your Location is: </string>
+    <string name="title_activity_main_menu">MainMenu</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

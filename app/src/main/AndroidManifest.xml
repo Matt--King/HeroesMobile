@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.virginia.cs.cs4720.heroesmobile" >
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -9,9 +10,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Home"
+            android:name=".GPSScreen"
             android:label="@string/app_name" >
-
         </activity>
         <activity
             android:name=".Splash"
@@ -21,6 +21,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainMenu"
+            android:label="@string/title_activity_main_menu" >
         </activity>
     </application>
 
