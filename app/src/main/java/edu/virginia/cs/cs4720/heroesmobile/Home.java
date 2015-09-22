@@ -136,7 +136,22 @@ public class Home extends AppCompatActivity {
             lonBox.setText("Your Longitude: " + lon);
 
             //Calculate closest Blizzard server
+            BlizzardServer closestServer = servers[0];
+            double dist, oldDist;
+            oldDist = servers[0].calculateDistance(lat,lon);
+            for(int i = 1; i < servers.length; ++i)
+            {
+                dist = servers[i].calculateDistance(lat, lon);
+                if(dist < oldDist)
+                {
+                    oldDist = dist;
+                    closestServer = servers[i];
+                }
+            }
 
+            TextView serverTextView = (TextView)(findViewById(R.id.server_name_city));
+            String str = String.format(getApplicationContext().getString(R.string.server_name_city), closestServer.getServerName(), closestServer.getServerCity());
+            serverTextView.setText(str);
 
             //when the GPS button is pressed, make it disappear
             (findViewById(R.id.button2)).setVisibility(View.GONE);
@@ -145,6 +160,9 @@ public class Home extends AppCompatActivity {
             (findViewById(R.id.textView4)).setVisibility(View.VISIBLE);
             findViewById(R.id.latitude).setVisibility(View.VISIBLE);
             findViewById(R.id.longitude).setVisibility(View.VISIBLE);
+            findViewById(R.id.server_blurb).setVisibility(View.VISIBLE);
+            findViewById(R.id.server_name_city).setVisibility(View.VISIBLE);
+
         }
 
     }
