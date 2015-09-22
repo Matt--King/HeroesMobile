@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/abc_text_size_display_3_material" />
+        android:textSize="@dimen/abc_text_size_display_3_material"
+        android:textColor="@color/material_grey_900" />
 
 </RelativeLayout>

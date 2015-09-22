@@ -1,9 +1,13 @@
 package edu.virginia.cs.cs4720.heroesmobile;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import static java.lang.Thread.sleep;
 
 public class Splash extends AppCompatActivity {
 
@@ -11,6 +15,17 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                /* Create an Intent that will start the Menu-Activity. */
+                Intent intent = new Intent(Splash.this, Home.class);
+                startActivity(intent);
+                Splash.this.finish();
+            }
+        }, 1500);
+
     }
 
     @Override
