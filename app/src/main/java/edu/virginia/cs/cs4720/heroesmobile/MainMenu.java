@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -18,6 +19,13 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        //Pull the user's opinion on Murky from the previous page's intent
+        Intent intent = getIntent();
+        String input = intent.getStringExtra("User Opinion");
+        TextView opinionBox = (TextView)(findViewById(R.id.murky_is_blank));
+        //Display the user's input
+        String str = String.format(getApplicationContext().getString(R.string.murky_opinion), input);
+        opinionBox.setText(str);
     }
 
     @Override

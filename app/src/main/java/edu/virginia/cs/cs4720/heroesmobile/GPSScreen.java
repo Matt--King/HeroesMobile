@@ -28,42 +28,6 @@ public class GPSScreen extends AppCompatActivity {
             new BlizzardServer("SG1", "Singapore", 1.3147308, 103.8470128)
     };
 
-    public void setName(View v) {
-
-        Toast toasty = Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT );
-        toasty.setGravity(Gravity.TOP,0,0);
-        //retrieve user input and use that as their name
-        EditText box = (EditText) findViewById(R.id.editText);
-        String str = box.getText().toString();
-
-        if (str.length() <= 0) {
-            //ask them to try again
-            toasty.setText("Please enter your name.");
-            toasty.show();
-        } else {
-
-            //Customize the name for the user
-
-            String nameText = String.format(getApplicationContext().getString(R.string.hello_name), str);
-
-            TextView nameTextView = (TextView) findViewById(R.id.textView2);
-            nameTextView.setText(nameText);
-
-            //switch the layout visibility so that the GPS prompt is visible
-            //make the current screen disappear
-            (findViewById(R.id.button)).setVisibility(View.GONE);
-            box.setVisibility(View.GONE);
-            (findViewById(R.id.textView3)).setVisibility(View.GONE);
-
-
-            //make everything else pop up
-            nameTextView.setVisibility(View.VISIBLE);
-            (findViewById(R.id.button2)).setVisibility(View.VISIBLE);
-        }
-    }
-
-
-
     public void showGPS(View v) {
         Toast toasty = Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT );
         toasty.setGravity(Gravity.TOP,0,0);
