@@ -16,5 +16,7 @@
     <string name="murky_question">What is your opinion of Murky?</string>
     <string name="murky_is">I think Murky is </string>
     <string name="murky_opinion">You think Murky is %1$s!</string>
+    <string name="loading">Loading...mrgl</string>
+
 
 </resources>
