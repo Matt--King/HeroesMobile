@@ -1,16 +1,22 @@
 <resources>
     <string name="app_name">HeroesMobile</string>
 
-    <string name="hello_name">Hello %1$s! \n\nLet us detect your location, so that we can find the closest Blizzard server to you</string>
+    <string name="hello_name">Hello! \n\nMake sure that your location services are active, so that we can find the closest Blizzard server to you.</string>
     <string name="action_settings">Settings</string>
-    <string name="search_bar">Search for a Hero</string>
     <string name="title_activity_splash">Splash</string>
-    <string name="i_made_this">Heroes to go!</string>
-    <string name="name_box">Tell Me Your Name</string>
     <string name="submit">Submit</string>
     <string name="gps_button">Find the Closest Server to me!</string>
     <string name="server_blurb">The closest Blizzard server to your location is:</string>
     <string name="server_name_city">Server name: %1$s\nLocation: %2$s</string>
-
     <string name="where_am_i">Your Location is: </string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="coming_soon">[Other features will be here... soon]</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_murky_opinion">MurkyOpinion</string>
+    <string name="murky_question">What is your opinion of Murky?</string>
+    <string name="murky_is">I think Murky is </string>
+    <string name="murky_opinion">You think Murky is %1$s!</string>
+    <string name="loading">Loading...mrgl</string>
+
+
 </resources>

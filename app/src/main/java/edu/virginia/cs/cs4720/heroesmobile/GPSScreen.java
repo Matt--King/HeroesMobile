@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class Home extends AppCompatActivity {
+public class GPSScreen extends AppCompatActivity {
 
     private Location loc;
     private final BlizzardServer[] servers = {
@@ -27,42 +27,6 @@ public class Home extends AppCompatActivity {
             new BlizzardServer("AU1", "Sydney, SNW, Australia", -33.7969235, 150.9224326),
             new BlizzardServer("SG1", "Singapore", 1.3147308, 103.8470128)
     };
-
-    public void setName(View v) {
-
-        Toast toasty = Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT );
-        toasty.setGravity(Gravity.TOP,0,0);
-        //retrieve user input and use that as their name
-        EditText box = (EditText) findViewById(R.id.editText);
-        String str = box.getText().toString();
-
-        if (str.length() <= 0) {
-            //ask them to try again
-            toasty.setText("Please enter your name.");
-            toasty.show();
-        } else {
-
-            //Customize the name for the user
-
-            String nameText = String.format(getApplicationContext().getString(R.string.hello_name), str);
-
-            TextView nameTextView = (TextView) findViewById(R.id.textView2);
-            nameTextView.setText(nameText);
-
-            //switch the layout visibility so that the GPS prompt is visible
-            //make the current screen disappear
-            (findViewById(R.id.button)).setVisibility(View.GONE);
-            box.setVisibility(View.GONE);
-            (findViewById(R.id.textView3)).setVisibility(View.GONE);
-
-
-            //make everything else pop up
-            nameTextView.setVisibility(View.VISIBLE);
-            (findViewById(R.id.button2)).setVisibility(View.VISIBLE);
-        }
-    }
-
-
 
     public void showGPS(View v) {
         Toast toasty = Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT );
@@ -170,20 +134,20 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.gps_screen);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_gps_screen, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the GPSScreen/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
