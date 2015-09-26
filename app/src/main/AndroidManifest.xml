@@ -11,11 +11,13 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".GPSScreen"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            >
         </activity>
         <activity
             android:name=".Splash"
-            android:label="@string/title_activity_splash" >
+            android:label="@string/title_activity_splash"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
