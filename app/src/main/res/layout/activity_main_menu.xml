@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/murky_opinion"
+        android:text="@string/murky_answer_one"
         android:id="@+id/murky_is_blank"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
