@@ -4,45 +4,59 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="edu.virginia.cs.cs4720.heroesmobile.MurkyOpinion">
+    tools:context="edu.virginia.cs.cs4720.heroesmobile.MurkyOpinion" >
 
     <TextView android:text="@string/murky_question" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="141dp"
         android:textSize="@dimen/abc_text_size_display_1_material"
-        android:id="@+id/murky_question" />
+        android:id="@+id/murky_question"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/murky_ans"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/murky_is_text"
-        android:layout_toEndOf="@+id/murky_is_text" />
+        android:layout_marginBottom="110dp"
+        android:id="@+id/radiogroup">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/murky_is"
-        android:id="@+id/murky_is_text"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="@dimen/abc_text_size_headline_material" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/murky_option_one"
+            android:id="@+id/option_one"
+            android:layout_gravity="center_horizontal"
+            android:onClick="radioSelect" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/submit"
-        android:id="@+id/submit_btn"
-        android:layout_below="@+id/murky_ans"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:onClick="clickButton" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/murky_option_two"
+            android:id="@+id/option_two"
+            android:layout_marginTop="101dp"
+            android:layout_gravity="center_horizontal"
+            android:onClick="radioSelect" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/murky_option_three"
+            android:id="@+id/option_three"
+            android:layout_marginTop="101dp"
+            android:layout_gravity="center_horizontal"
+            android:onClick="radioSelect" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:id="@+id/submit_btn"
+            android:layout_marginTop="89dp"
+            android:onClick="clickButton"
+            android:layout_gravity="center_horizontal" />
+    </RadioGroup>
 
 </RelativeLayout>

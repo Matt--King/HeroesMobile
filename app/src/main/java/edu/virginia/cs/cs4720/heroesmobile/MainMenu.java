@@ -21,10 +21,17 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         //Pull the user's opinion on Murky from the previous page's intent
         Intent intent = getIntent();
-        String input = intent.getStringExtra("User Opinion");
+        int input = intent.getIntExtra("User Opinion", 1);
         TextView opinionBox = (TextView)(findViewById(R.id.murky_is_blank));
         //Display the user's input
-        String str = String.format(getApplicationContext().getString(R.string.murky_opinion), input);
+        String str;
+        if (input == 1) {
+            str = getApplicationContext().getString(R.string.murky_answer_one);
+        } else if (input == 2) {
+            str = getApplicationContext().getString(R.string.murky_answer_two);
+        } else {
+            str = getApplicationContext().getString(R.string.murky_answer_three);
+        }
         opinionBox.setText(str);
     }
 

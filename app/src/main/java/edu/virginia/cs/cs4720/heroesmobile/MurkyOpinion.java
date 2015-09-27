@@ -8,28 +8,52 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class MurkyOpinion extends AppCompatActivity {
+    private int opinion = 0;
+
+    public void radioSelect(View view)
+    {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.option_one:
+                if (checked)
+                    // Murky is OP
+                    opinion = 1;
+                    break;
+            case R.id.option_two:
+                if (checked)
+                    // Murky sucks
+                    opinion = 2;
+                    break;
+            case R.id.option_three:
+                if (checked)
+                    // No opinion
+                    opinion = 3;
+                    break;
+        }
+    }
 
     public void clickButton(View view)
     {
-        EditText answerText = (EditText)(findViewById(R.id.murky_ans));
-        final String str = answerText.getText().toString();
-        if(str.length() <= 0)
-        {
-            Toast.makeText(getBaseContext(),"Please tell me what you think of Murky",Toast.LENGTH_SHORT ).show();
-        } else {
+        if (opinion != 0){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
                     Intent intent = new Intent(MurkyOpinion.this, MainMenu.class);
-                    intent.putExtra("User Opinion", str);
+                    intent.putExtra("User Opinion", opinion);
                     startActivity(intent);
                     MurkyOpinion.this.finish();
                 }
             }, 0);
+        } else {
+        Toast.makeText(getBaseContext(),"Please tell me what you think of Murky",Toast.LENGTH_SHORT ).show();
         }
     }
 

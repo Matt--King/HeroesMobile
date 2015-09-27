@@ -13,9 +13,15 @@
     <string name="coming_soon">[Other features will be here... soon]</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_murky_opinion">MurkyOpinion</string>
+
     <string name="murky_question">What is your opinion of Murky?</string>
-    <string name="murky_is">I think Murky is </string>
-    <string name="murky_opinion">You think Murky is %1$s!</string>
+    <string name="murky_option_one">I think Murky is OP. pls nerf Blizz.</string>
+    <string name="murky_option_two">Murky is terrible! He's basically a lane minion.</string>
+    <string name="murky_option_three">Do I look like I care about Murky?</string>
+    <string name="murky_answer_one">Murky is OP!</string>
+    <string name="murky_answer_two">Murky buff, please.</string>
+    <string name="murky_answer_three">What even is Murky.</string>
+
     <string name="loading">Loading...mrgl</string>
 
 
