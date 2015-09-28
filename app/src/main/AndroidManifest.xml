@@ -11,8 +11,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".GPSScreen"
-            android:label="@string/app_name"
-            >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".Splash"
@@ -30,6 +29,10 @@
         <activity
             android:name=".MurkyOpinion"
             android:label="@string/title_activity_murky_opinion" >
+        </activity>
+        <activity
+            android:name=".BattlegroundScreen"
+            android:label="@string/title_activity_battlegrounds" >
         </activity>
     </application>
 
