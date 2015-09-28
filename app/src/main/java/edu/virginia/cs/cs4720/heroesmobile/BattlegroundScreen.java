@@ -33,7 +33,7 @@ public class BattlegroundScreen extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 0;
+            return 9;
         }
 
         @Override
