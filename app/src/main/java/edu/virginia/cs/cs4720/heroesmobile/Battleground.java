@@ -9,15 +9,15 @@ import android.graphics.drawable.Drawable;
  */
 public class Battleground {
 
-    public final int HAUNTED_MINES = 0;
-    public final int CURSED_HOLLOW = 1;
-    public final int DRAGON_SHIRE = 2;
-    public final int BLACKHEARTS_BAY = 3;
-    public final int GARDEN_OF_TERROR = 4;
-    public final int SKY_TEMPLE = 5;
-    public final int TOMB_OF_THE_SPIDER_QUEEN = 6;
-    public final int BATTLEFIELD_OF_ETERNITY = 7;
-    public final int INFERNAL_SHRINES = 8;
+    public static final int HAUNTED_MINES = 0;
+    public static final int CURSED_HOLLOW = 1;
+    public static final int DRAGON_SHIRE = 2;
+    public static final int BLACKHEARTS_BAY = 3;
+    public static final int GARDEN_OF_TERROR = 4;
+    public static final int SKY_TEMPLE = 5;
+    public static final int TOMB_OF_THE_SPIDER_QUEEN = 6;
+    public static final int BATTLEFIELD_OF_ETERNITY = 7;
+    public static final int INFERNAL_SHRINES = 8;
 
 
     private final String[] names =

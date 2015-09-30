@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HeroesMobile</string>
+    <string name="app_name">Murky = GG</string>
 
     <string name="hello_name">Hello! \n\nMake sure that your location services are active, so that we can find the closest Blizzard server to you.</string>
     <string name="action_settings">Settings</string>
@@ -18,12 +18,11 @@
     <string name="murky_option_one">I think Murky is OP. pls nerf Blizz.</string>
     <string name="murky_option_two">Murky is terrible! He\'s basically a lane minion.</string>
     <string name="murky_option_three">Do I look like I care about Murky?</string>
+
     <string name="murky_answer_one">Murky is OP!</string>
     <string name="murky_answer_two">Murky buff, please.</string>
     <string name="murky_answer_three">What even is Murky.</string>
 
     <string name="loading">Loading...mrgl</string>
     <string name="title_activity_battlegrounds">Battlegrounds</string>
-
-
 </resources>

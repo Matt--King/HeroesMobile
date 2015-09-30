@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="@string/gps_button"
         android:id="@+id/to_gps_screen_btn"
-        android:layout_marginTop="133dp"
+        android:layout_marginTop="100dp"
         android:onClick="goToGPSScreen"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -25,4 +25,17 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_activity_battlegrounds"
+        android:id="@+id/to_battleground_screen_btn"
+        android:layout_marginTop="100dp"
+        android:onClick="goToBattlegroundsScreen"
+        android:layout_below="@+id/to_gps_screen_btn"
+        android:layout_alignLeft="@+id/to_gps_screen_btn"
+        android:layout_alignStart="@+id/to_gps_screen_btn"
+        android:layout_alignRight="@+id/to_gps_screen_btn"
+        android:layout_alignEnd="@+id/to_gps_screen_btn" />
 </RelativeLayout>

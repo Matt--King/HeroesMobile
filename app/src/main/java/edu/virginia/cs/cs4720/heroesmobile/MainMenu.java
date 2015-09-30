@@ -15,6 +15,12 @@ public class MainMenu extends AppCompatActivity {
         Intent intent = new Intent(MainMenu.this, GPSScreen.class);
         startActivity(intent);
     }
+
+    public void goToBattlegroundsScreen (View view)
+    {
+        Intent intent = new Intent(MainMenu.this, BattlegroundScreen.class);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
