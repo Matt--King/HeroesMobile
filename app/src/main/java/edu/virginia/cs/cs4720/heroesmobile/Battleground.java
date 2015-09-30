@@ -33,7 +33,7 @@ public class Battleground {
                     "Infernal Shrines",
             };
 
-    private final Drawable[] mapImages = {};
+   // private final Drawable[] mapImages = {};
 
 
     private final String[] mapDescriptions =
@@ -85,6 +85,9 @@ public class Battleground {
             };
 
 
+    private String BGName;
+    private String BGDescription;
+
     /***
      * creates a new Battleground object
      *
@@ -95,7 +98,8 @@ public class Battleground {
      */
     public Battleground(int battlegroundID)
     {
-
+        this.BGName = names[battlegroundID];
+        this.BGDescription = mapDescriptions[battlegroundID];
     }
 
 
