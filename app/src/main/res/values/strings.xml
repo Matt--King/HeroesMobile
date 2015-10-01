@@ -24,5 +24,22 @@
     <string name="murky_answer_three">What even is Murky.</string>
 
     <string name="loading">Loading...mrgl</string>
-    <string name="title_activity_battlegrounds">Battlegrounds</string>
+    <string name="battlegrounds">Battlegrounds</string>
+
+    <string name="timers">Mercenary Camp Timers</string>
+
+    <string name="camps">Camp Type</string>
+    <string name="bruiser_name">Bruiser Camps</string>
+    <string name="siege_name">Siege Camps</string>
+    <string name="boss_name">Boss Camp</string>
+
+    <string name="initial">Initial Spawn Time</string>
+    <string name="respawn">Respawn Time</string>
+
+    <string name="initial_spawn">2 Minutes</string>
+    <string name="bruiser_respawn">4 Minutes</string>
+    <string name="siege_respawn">3 Minutes</string>
+    <string name="boss_respawn">5 Minutes</string>
+
+
 </resources>
