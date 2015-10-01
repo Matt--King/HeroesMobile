@@ -1,14 +1,19 @@
 package edu.virginia.cs.cs4720.heroesmobile;
 
+import android.content.Context;
 import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.zip.Inflater;
 
 public class BattlegroundScreen extends AppCompatActivity {
     private Battleground[] bgArray = {
@@ -35,7 +40,7 @@ public class BattlegroundScreen extends AppCompatActivity {
 
             @Override
             public boolean isEnabled(int position) {
-                return false;
+                return true;
             }
 
             @Override
@@ -60,7 +65,7 @@ public class BattlegroundScreen extends AppCompatActivity {
 
             @Override
             public long getItemId(int position) {
-                return 0;
+                return position;
             }
 
             @Override
@@ -70,7 +75,19 @@ public class BattlegroundScreen extends AppCompatActivity {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                return null;
+                if (convertView == null) {
+                    //create the new List Item View
+                    LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+                    convertView = inflater.inflate(R.layout.list_row_group, parent, false);
+                }
+                //Get a hold of the TextViews in the new View and update them.
+                TextView name = (TextView)(convertView.findViewById(R.id.bg_name_text));
+                TextView description = (TextView)(convertView.findViewById(R.id.bg_description_text));
+
+                Battleground current = bgArray[position];
+                name.setText(current.getName());
+                description.setText(current.getDescription());
+                return convertView;
             }
 
             @Override
@@ -80,7 +97,7 @@ public class BattlegroundScreen extends AppCompatActivity {
 
             @Override
             public int getViewTypeCount() {
-                return 0;
+                return 1;
             }
 
             @Override

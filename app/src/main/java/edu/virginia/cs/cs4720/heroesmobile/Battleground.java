@@ -103,8 +103,13 @@ public class Battleground {
     }
 
 
+    public String getName()
+    {
+        return this.BGName;
+    }
 
-
-
-
+    public String getDescription()
+    {
+        return this.BGDescription;
+    }
 }
