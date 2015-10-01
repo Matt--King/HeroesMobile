@@ -1,5 +1,6 @@
 package edu.virginia.cs.cs4720.heroesmobile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 public class MurkyOpinion extends AppCompatActivity {
-    private int opinion = 0;
+    private String opinion = "";
 
     public void radioSelect(View view)
     {
@@ -24,38 +33,47 @@ public class MurkyOpinion extends AppCompatActivity {
             case R.id.option_one:
                 if (checked)
                     // Murky is OP
-                    opinion = 1;
+                    opinion = getApplicationContext().getString(R.string.murky_answer_one);
                     break;
             case R.id.option_two:
                 if (checked)
                     // Murky sucks
-                    opinion = 2;
+                    opinion = getApplicationContext().getString(R.string.murky_answer_two);
                     break;
             case R.id.option_three:
                 if (checked)
                     // No opinion
-                    opinion = 3;
+                    opinion = getApplicationContext().getString(R.string.murky_answer_three);
                     break;
         }
     }
 
     public void clickButton(View view)
     {
-        if (opinion != 0){
+        if (!opinion.isEmpty()){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
                     Intent intent = new Intent(MurkyOpinion.this, MainMenu.class);
-                    intent.putExtra("User Opinion", opinion);
+
+
+                    try {
+                        JSONObject json = MainMenu.readObjectFromInternalStorage(getApplicationContext(), "MurkyDB.json");
+                        json.put("opinion", opinion);
+                    } catch (Exception e ) {
+                        e.printStackTrace();
+                    }
+
                     startActivity(intent);
                     MurkyOpinion.this.finish();
                 }
             }, 0);
         } else {
-        Toast.makeText(getBaseContext(),"Please tell me what you think of Murky",Toast.LENGTH_SHORT ).show();
+            Toast.makeText(getBaseContext(),"Please tell me what you think of Murky",Toast.LENGTH_SHORT ).show();
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

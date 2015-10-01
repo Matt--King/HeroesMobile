@@ -1,5 +1,6 @@
 package edu.virginia.cs.cs4720.heroesmobile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -27,18 +39,38 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         //Pull the user's opinion on Murky from the previous page's intent
         Intent intent = getIntent();
-        int input = intent.getIntExtra("User Opinion", 1);
         TextView opinionBox = (TextView)(findViewById(R.id.murky_is_blank));
         //Display the user's input
-        String str;
-        if (input == 1) {
-            str = getApplicationContext().getString(R.string.murky_answer_one);
-        } else if (input == 2) {
-            str = getApplicationContext().getString(R.string.murky_answer_two);
-        } else {
-            str = getApplicationContext().getString(R.string.murky_answer_three);
+        // TODO add action bar to change this functionality
+        //Display the user's input
+        String str = "it didn\'t work";
+
+        try {
+            JSONObject json = MainMenu.readObjectFromInternalStorage(getApplicationContext(), "MurkyDB.json");
+            str = json.get("opinion").toString();
+            Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+        } catch (Exception e ) {
+            e.printStackTrace();
         }
+
         opinionBox.setText(str);
+    }
+
+    public static JSONObject readObjectFromInternalStorage(Context context, String filename) throws Exception{
+        StringBuffer datax = new StringBuffer("");
+        FileInputStream fIn =  context.openFileInput(filename);
+        InputStreamReader isr = new InputStreamReader ( fIn ) ;
+        BufferedReader buffreader = new BufferedReader ( isr ) ;
+
+        String readString = buffreader.readLine ( ) ;
+        while ( readString != null ) {
+            datax.append(readString);
+            readString = buffreader.readLine ( ) ;
+        }
+        isr.close ( ) ;
+
+        JSONObject j = new JSONObject(datax.toString());
+        return j;
     }
 
     @Override
