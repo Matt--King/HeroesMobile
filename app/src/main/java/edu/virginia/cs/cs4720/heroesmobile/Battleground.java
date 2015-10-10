@@ -33,15 +33,28 @@ public class Battleground {
                     "Infernal Shrines",
             };
 
-   // private final Drawable[] mapImages = {};
+    private final int[] mapImageIDs =
+            {
+                    R.drawable.minestop,
+                    R.drawable.hollow,
+                    R.drawable.dragonshire,
+                    R.drawable.blackhearts,
+                    R.drawable.garden,
+                    R.drawable.skytemple,
+                    R.drawable.spiderqueen,
+                    R.drawable.battlefieldeternity,
+                    R.drawable.shrines
+    };
 
 
     private final String[] mapDescriptions =
             {
-                    "The Haunted Mines will periodically open to reveal an undead army underneath." +
-                            " Destroy the undead and collect their skulls to power your team's golem." +
-                            " Once the army has been defeated, a golem will arise for each team. " +
-                            " The more skulls your team collects, the stronger your golem.",
+                    "The Haunted Mines open for the first time after 2 minutes." +
+                            " Once open, players can enter the mines via the entrances in each lane." +
+                            " The neutral monsters in the mines drop skulls to pick up on death." +
+                            " The large grave golem camp drops 30 skulls, and the other camps collectively drop 70." +
+                            " The center camp drops 10 skulls and the center-left camp drops 12. The other 6 small camps drop 8 skulls each." +
+                            " ; The more skulls your team collects, the stronger your golem. ",
 
                     "The Raven Lord will periodically create tributes for either team to gather in random locations." +
                             " When one team captures three tributes, the Raven Lord will curse their opponents." +
@@ -87,6 +100,8 @@ public class Battleground {
 
     private String BGName;
     private String BGDescription;
+    private int BGMapImageID;
+    private int BGMapTwo;
 
     /***
      * creates a new Battleground object
@@ -100,6 +115,14 @@ public class Battleground {
     {
         this.BGName = names[battlegroundID];
         this.BGDescription = mapDescriptions[battlegroundID];
+        this.BGMapImageID = mapImageIDs[battlegroundID];
+        if(battlegroundID == 0)
+        {
+            //Haunted Mines has two images, so we need to make sure it is a thing
+            this.BGMapTwo = R.drawable.minesbottom;
+        } else {
+            this.BGMapTwo = -1;
+        }
     }
 
 
@@ -111,5 +134,10 @@ public class Battleground {
     public String getDescription()
     {
         return this.BGDescription;
+    }
+
+    public int getMapImageID()
+    {
+        return this.BGMapImageID;
     }
 }

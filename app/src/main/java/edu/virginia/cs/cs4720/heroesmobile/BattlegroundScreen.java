@@ -9,11 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.zip.Inflater;
 
 public class BattlegroundScreen extends AppCompatActivity {
     private Battleground[] bgArray = {
@@ -32,14 +31,9 @@ public class BattlegroundScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battleground_screen);
-        ListAdapter list = new ListAdapter() {
+        ExpandableListAdapter list = new ExpandableListAdapter() {
             @Override
             public boolean areAllItemsEnabled() {
-                return true;
-            }
-
-            @Override
-            public boolean isEnabled(int position) {
                 return true;
             }
 
@@ -54,18 +48,33 @@ public class BattlegroundScreen extends AppCompatActivity {
             }
 
             @Override
-            public int getCount() {
-                return 9;
+            public int getGroupCount() {
+                return bgArray.length;
             }
 
             @Override
-            public Battleground getItem(int position) {
-                return bgArray[position];
+            public int getChildrenCount(int groupPosition) {
+                return 1;
             }
 
             @Override
-            public long getItemId(int position) {
-                return position;
+            public Object getGroup(int groupPosition) {
+                return null;
+            }
+
+            @Override
+            public Object getChild(int groupPosition, int childPosition) {
+                return null;
+            }
+
+            @Override
+            public long getGroupId(int groupPosition) {
+                return 0;
+            }
+
+            @Override
+            public long getChildId(int groupPosition, int childPosition) {
+                return 0;
             }
 
             @Override
@@ -74,11 +83,54 @@ public class BattlegroundScreen extends AppCompatActivity {
             }
 
             @Override
+            public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+                if (convertView == null) {
+                    //create the new List Item View
+                    LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+                    convertView = inflater.inflate(R.layout.listview_parent, parent, false);
+                }
+                //Get a hold of the TextViews in the new View and update them.
+                TextView name = (TextView)(convertView.findViewById(R.id.parent_name_box));
+
+                Battleground current = bgArray[groupPosition];
+                name.setText(current.getName());
+                return convertView;
+            }
+
+            @Override
+            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+                if (convertView == null) {
+                    //create the new List Item View
+                    LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+                    convertView = inflater.inflate(R.layout.listview_child, parent, false);
+                }
+                //Get a hold of the TextViews in the new View and update them.
+                ImageView img = (ImageView)(convertView.findViewById(R.id.map_image_1));
+                TextView description = (TextView)(convertView.findViewById(R.id.bg_description_text));
+
+                if(groupPosition == 0)
+                {
+                    //Haunted Mines needs the basement map as well, so add that in
+                    ImageView secondMap = (ImageView)(convertView.findViewById(R.id.mapImage2));
+
+                }
+
+
+
+                return convertView;
+            }
+
+            @Override
+            public boolean isChildSelectable(int groupPosition, int childPosition) {
+                return false;
+            }
+/*
+            @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
                     //create the new List Item View
                     LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-                    convertView = inflater.inflate(R.layout.list_row_group, parent, false);
+                    convertView = inflater.inflate(R.layout.listview_child, parent, false);
                 }
                 //Get a hold of the TextViews in the new View and update them.
                 TextView name = (TextView)(convertView.findViewById(R.id.bg_name_text));
@@ -89,24 +141,34 @@ public class BattlegroundScreen extends AppCompatActivity {
                 description.setText(current.getDescription());
                 return convertView;
             }
-
-            @Override
-            public int getItemViewType(int position) {
-                return 0;
-            }
-
-            @Override
-            public int getViewTypeCount() {
-                return 1;
-            }
-
+*/
             @Override
             public boolean isEmpty() {
                 return false;
             }
+
+            @Override
+            public void onGroupExpanded(int groupPosition) {
+
+            }
+
+            @Override
+            public void onGroupCollapsed(int groupPosition) {
+
+            }
+
+            @Override
+            public long getCombinedChildId(long groupId, long childId) {
+                return 0;
+            }
+
+            @Override
+            public long getCombinedGroupId(long groupId) {
+                return 0;
+            }
         };
-        ListView listView = (ListView)(findViewById(R.id.bg_list));
-        listView.setAdapter(list);
+        ExpandableListView eListView = (ExpandableListView)(findViewById(R.id.bg_list));
+        eListView.setAdapter(list);
     }
 
     @Override
