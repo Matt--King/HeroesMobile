@@ -13,11 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 public class BattlegroundScreen extends AppCompatActivity {
     private Battleground[] bgArray = {
@@ -31,10 +28,11 @@ public class BattlegroundScreen extends AppCompatActivity {
             new Battleground(Battleground.BATTLEFIELD_OF_ETERNITY),
             new Battleground(Battleground.INFERNAL_SHRINES)};
 
+
     public void switchButtonClick(View view){
                 Button button = (Button)findViewById(R.id.switcher_button);
                 String currentText = button.getText().toString();
-                ImageView map = (ImageView)findViewById(R.id.map_image);
+                ImageView map = (ImageView)findViewById(R.id.mines_map_image);
 
                 if(currentText.equals(getApplicationContext().getString(R.string.top))){
                     //the user wants to bring up the top map
@@ -51,6 +49,8 @@ public class BattlegroundScreen extends AppCompatActivity {
                 }
 
     }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,17 +127,14 @@ public class BattlegroundScreen extends AppCompatActivity {
 
                 if(groupPosition == 0) {
                     //Haunted Mines has two maps, and Android and I hate each other, so I'm just making a special case dropdown for Haunted Mines.
-                    if(convertView == null) {
-
                         LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
                         convertView = inflater.inflate(R.layout.haunted_mines_child, parent, false);
-                    }
                     //set the image
-                    ImageView img =  (ImageView)(convertView.findViewById(R.id.map_image));
+                    ImageView hauntedMineImageView =  (ImageView)(convertView.findViewById(R.id.mines_map_image));
 
-                    int mapID = current.getMapImageID();
-                    Drawable map = getResources().getDrawable(mapID);
-                    img.setImageDrawable(map);
+
+                    Drawable map = getApplicationContext().getResources().getDrawable(R.drawable.minestop);
+                    hauntedMineImageView.setImageDrawable(map);
 
                     TextView description = (TextView)(convertView.findViewById(R.id.bg_description));
                     TextView bossBox = (TextView)(convertView.findViewById(R.id.has_boss));
@@ -157,11 +154,9 @@ public class BattlegroundScreen extends AppCompatActivity {
 
 
                 } else {
-                    if (convertView == null) {
                         //create the new List Item View
                         LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
                         convertView = inflater.inflate(R.layout.listview_child, parent, false);
-                    }
 
                     //Get a hold of the TextViews, ImageViews in the new View and update them.
                     ImageView img = (ImageView)(convertView.findViewById(R.id.map_image_1));

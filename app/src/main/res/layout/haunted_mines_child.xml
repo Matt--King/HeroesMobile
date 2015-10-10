@@ -32,13 +32,13 @@
         android:id="@+id/switcher_button"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/map_image"
+        android:layout_below="@+id/mines_map_image"
         android:onClick="switchButtonClick" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/map_image"
+        android:id="@+id/mines_map_image"
         android:layout_below="@+id/has_boss"
         android:layout_centerHorizontal="true"
         android:src="@drawable/minestop"
