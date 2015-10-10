@@ -56,7 +56,10 @@ public class Battleground {
                             " The center camp drops 10 skulls and the center-left camp drops 12. The other 6 small camps drop 8 skulls each." +
                             " ; The more skulls your team collects, the stronger your golem. ",
 
-                    "The Raven Lord will periodically create tributes for either team to gather in random locations." +
+                    "The Raven Lord will create tributes for either team to gather in six random locations." +
+                            " The first tribute will randomly spawn between 2 and 3 minutes after the match starts." +
+                            " To capture the tribute, a Hero must right click it and channel for 6 uninterrupted seconds." +
+                            "" +
                             " When one team captures three tributes, the Raven Lord will curse their opponents." +
                             " While cursed, towers and forts will not fire, and lane minions are reduced to one health." +
                             " The Raven Lord's Curse does not affect the core or captured mercenaries.",

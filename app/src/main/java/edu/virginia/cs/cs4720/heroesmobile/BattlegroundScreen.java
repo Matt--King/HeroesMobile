@@ -142,7 +142,7 @@ public class BattlegroundScreen extends AppCompatActivity {
                     //set the description
                     description.setText(current.getDescription());
 
-                    Button switchButton = (Button)findViewById(R.id.mines_button);
+                    Button switchButton = (Button)convertView.findViewById(R.id.mines_button);
                     switchButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
