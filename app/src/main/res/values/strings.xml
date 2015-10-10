@@ -41,5 +41,10 @@
     <string name="siege_respawn">3 Minutes</string>
     <string name="boss_respawn">5 Minutes</string>
 
+    <string name="no_boss">*This map does NOT have a boss camp*</string>
+    <string name="yes_boss">*This map does have a boss camp*</string>
+    <string name="top">Top Map</string>
+    <string name="mines">Mines Map</string>
+
 
 </resources>

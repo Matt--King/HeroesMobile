@@ -8,22 +8,28 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world"
         android:id="@+id/bg_description_text"
+        android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/map_image_1"
-        android:layout_alignParentTop="true"
+        android:src="@drawable/minestop"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:layout_below="@+id/has_boss"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/map_image_2"
-        android:layout_below="@+id/map_image_1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/no_boss"
+        android:id="@+id/has_boss"
+        android:layout_below="@+id/bg_description_text"
         android:layout_centerHorizontal="true" />
 
 

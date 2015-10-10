@@ -2,6 +2,7 @@ package edu.virginia.cs.cs4720.heroesmobile;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,10 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 public class BattlegroundScreen extends AppCompatActivity {
     private Battleground[] bgArray = {
@@ -26,7 +31,26 @@ public class BattlegroundScreen extends AppCompatActivity {
             new Battleground(Battleground.BATTLEFIELD_OF_ETERNITY),
             new Battleground(Battleground.INFERNAL_SHRINES)};
 
+    public void switchButtonClick(View view){
+                Button button = (Button)findViewById(R.id.switcher_button);
+                String currentText = button.getText().toString();
+                ImageView map = (ImageView)findViewById(R.id.map_image);
 
+                if(currentText.equals(getApplicationContext().getString(R.string.top))){
+                    //the user wants to bring up the top map
+
+                    Drawable topMap = getApplicationContext().getResources().getDrawable(R.drawable.minestop);
+                    map.setImageDrawable(topMap);
+                    button.setText(getApplicationContext().getString(R.string.mines));
+                } else {
+                    //the user wants the mines map now
+
+                    Drawable minesMap = getApplicationContext().getResources().getDrawable(R.drawable.minesbottom);
+                    map.setImageDrawable(minesMap);
+                    button.setText(getApplicationContext().getString(R.string.top));
+                }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,23 +123,70 @@ public class BattlegroundScreen extends AppCompatActivity {
 
             @Override
             public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-                if (convertView == null) {
-                    //create the new List Item View
-                    LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-                    convertView = inflater.inflate(R.layout.listview_child, parent, false);
+                Battleground current = bgArray[groupPosition];
+
+                if(groupPosition == 0) {
+                    //Haunted Mines has two maps, and Android and I hate each other, so I'm just making a special case dropdown for Haunted Mines.
+                    if(convertView == null) {
+
+                        LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+                        convertView = inflater.inflate(R.layout.haunted_mines_child, parent, false);
+                    }
+                    //set the image
+                    ImageView img =  (ImageView)(convertView.findViewById(R.id.map_image));
+
+                    int mapID = current.getMapImageID();
+                    Drawable map = getResources().getDrawable(mapID);
+                    img.setImageDrawable(map);
+
+                    TextView description = (TextView)(convertView.findViewById(R.id.bg_description));
+                    TextView bossBox = (TextView)(convertView.findViewById(R.id.has_boss));
+
+                    //set the description
+                    description.setText(current.getDescription());
+
+                    String str;
+                    //and the boss line
+                    if(current.hasBoss())
+                    {
+                        str = getApplicationContext().getString(R.string.yes_boss);
+                    } else {
+                        str = getApplicationContext().getString(R.string.no_boss);
+                    }
+                    bossBox.setText(str);
+
+
+                } else {
+                    if (convertView == null) {
+                        //create the new List Item View
+                        LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+                        convertView = inflater.inflate(R.layout.listview_child, parent, false);
+                    }
+
+                    //Get a hold of the TextViews, ImageViews in the new View and update them.
+                    ImageView img = (ImageView)(convertView.findViewById(R.id.map_image_1));
+
+                    TextView description = (TextView)(convertView.findViewById(R.id.bg_description_text));
+                    TextView bossBox = (TextView)(convertView.findViewById(R.id.has_boss));
+
+                    //main map image
+                    int mapID = current.getMapImageID();
+                    Drawable map = getResources().getDrawable(mapID);
+                    img.setImageDrawable(map);
+
+                    //set the description
+                    description.setText(bgArray[groupPosition].getDescription());
+
+                    String str;
+                    //and the boss line
+                    if(current.hasBoss())
+                    {
+                        str = getApplicationContext().getString(R.string.yes_boss);
+                    } else {
+                        str = getApplicationContext().getString(R.string.no_boss);
+                    }
+                    bossBox.setText(str);
                 }
-                //Get a hold of the TextViews in the new View and update them.
-                ImageView img = (ImageView)(convertView.findViewById(R.id.map_image_1));
-                TextView description = (TextView)(convertView.findViewById(R.id.bg_description_text));
-
-                if(groupPosition == 0)
-                {
-                    //Haunted Mines needs the basement map as well, so add that in
-                    ImageView secondMap = (ImageView)(convertView.findViewById(R.id.mapImage2));
-
-                }
-
-
 
                 return convertView;
             }
@@ -124,24 +195,7 @@ public class BattlegroundScreen extends AppCompatActivity {
             public boolean isChildSelectable(int groupPosition, int childPosition) {
                 return false;
             }
-/*
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                if (convertView == null) {
-                    //create the new List Item View
-                    LayoutInflater inflater = (LayoutInflater) (getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-                    convertView = inflater.inflate(R.layout.listview_child, parent, false);
-                }
-                //Get a hold of the TextViews in the new View and update them.
-                TextView name = (TextView)(convertView.findViewById(R.id.bg_name_text));
-                TextView description = (TextView)(convertView.findViewById(R.id.bg_description_text));
 
-                Battleground current = bgArray[position];
-                name.setText(current.getName());
-                description.setText(current.getDescription());
-                return convertView;
-            }
-*/
             @Override
             public boolean isEmpty() {
                 return false;
@@ -167,6 +221,7 @@ public class BattlegroundScreen extends AppCompatActivity {
                 return 0;
             }
         };
+
         ExpandableListView eListView = (ExpandableListView)(findViewById(R.id.bg_list));
         eListView.setAdapter(list);
     }

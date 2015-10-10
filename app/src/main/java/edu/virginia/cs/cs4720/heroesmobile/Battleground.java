@@ -101,7 +101,7 @@ public class Battleground {
     private String BGName;
     private String BGDescription;
     private int BGMapImageID;
-    private int BGMapTwo;
+    private boolean boss = false;
 
     /***
      * creates a new Battleground object
@@ -116,12 +116,11 @@ public class Battleground {
         this.BGName = names[battlegroundID];
         this.BGDescription = mapDescriptions[battlegroundID];
         this.BGMapImageID = mapImageIDs[battlegroundID];
-        if(battlegroundID == 0)
+
+        if(battlegroundID == 1 || battlegroundID == 3 || battlegroundID == 5
+                || battlegroundID == 6)
         {
-            //Haunted Mines has two images, so we need to make sure it is a thing
-            this.BGMapTwo = R.drawable.minesbottom;
-        } else {
-            this.BGMapTwo = -1;
+            boss = true;
         }
     }
 
@@ -139,5 +138,10 @@ public class Battleground {
     public int getMapImageID()
     {
         return this.BGMapImageID;
+    }
+
+    public boolean hasBoss()
+    {
+        return boss;
     }
 }
