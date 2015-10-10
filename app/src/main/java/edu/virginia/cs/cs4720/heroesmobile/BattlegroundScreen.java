@@ -30,7 +30,7 @@ public class BattlegroundScreen extends AppCompatActivity {
 
 
     public void switchButtonClick(View view){
-                Button button = (Button)findViewById(R.id.switcher_button);
+                Button button = (Button)findViewById(R.id.mines_button);
                 String currentText = button.getText().toString();
                 ImageView map = (ImageView)findViewById(R.id.mines_map_image);
 
@@ -141,6 +141,30 @@ public class BattlegroundScreen extends AppCompatActivity {
 
                     //set the description
                     description.setText(current.getDescription());
+
+                    Button switchButton = (Button)findViewById(R.id.mines_button);
+                    switchButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Button button = (Button)findViewById(R.id.mines_button);
+                            String currentText = button.getText().toString();
+                            ImageView map = (ImageView)findViewById(R.id.mines_map_image);
+
+                            if(currentText.equals(getApplicationContext().getString(R.string.top))){
+                                //the user wants to bring up the top map
+
+                                Drawable topMap = getApplicationContext().getResources().getDrawable(R.drawable.minestop);
+                                map.setImageDrawable(topMap);
+                                button.setText(getApplicationContext().getString(R.string.mines));
+                            } else {
+                                //the user wants the mines map now
+
+                                Drawable minesMap = getApplicationContext().getResources().getDrawable(R.drawable.minesbottom);
+                                map.setImageDrawable(minesMap);
+                                button.setText(getApplicationContext().getString(R.string.top));
+                            }
+                        }
+                    });
 
                     String str;
                     //and the boss line

@@ -29,11 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mines"
-        android:id="@+id/switcher_button"
+        android:id="@+id/mines_button"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/mines_map_image"
-        android:onClick="switchButtonClick" />
+        android:layout_below="@+id/mines_map_image" />
 
     <ImageView
         android:layout_width="wrap_content"
